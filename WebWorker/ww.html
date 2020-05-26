@@ -1,0 +1,36 @@
+<head>
+<meta charset="utf-8">
+<title>Web Worker</title>
+<script>
+    
+    var worker; //dichiarazione della variabile worker per allocazione dell'oggetto della classe Worker
+    
+    function startWorker() {
+        //creazione del webworker predendo il codice dal file 'worker.js'
+        worker = new Worker("worker.js");
+        
+		//permette di ascoltare i risultati inviati dal file esterno js
+        worker.onmessage =    function update(event) {
+        document.getElementById("result").innerHTML = event.data;
+    }
+    
+        
+        // Inizia
+        worker.postMessage("start");
+    }
+    
+ 
+    function stopWorker() { //funzione per terminare
+        
+        worker.terminate();
+    }
+</script>
+</head>
+<body>
+    <h1>Web Worker</h1>
+    <button onclick="startWorker();" type="button">	Inizia</button>
+    <button type="button" onclick="stopWorker();">Termina</button>
+    <div id="result">
+ 
+    </div>
+</body>
